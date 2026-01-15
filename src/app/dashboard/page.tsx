@@ -5,7 +5,7 @@ import { getContactRequests } from "@/actions/contact";
 import { DashboardContent } from "./DashboardContent";
 
 export const metadata = {
-  title: "Dashboard | LandSeller",
+  title: "Dashboard | Swadharma Properties",
   description: "Manage your land listings and view contact requests",
 };
 

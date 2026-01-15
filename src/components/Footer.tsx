@@ -12,7 +12,7 @@ export function Footer() {
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600">
                 <MapPin className="h-5 w-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-white">LandSeller</span>
+              <span className="text-xl font-bold text-white">Swadharma Properties</span>
             </Link>
             <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-400">
               Your trusted marketplace for buying and selling land properties. 
@@ -72,7 +72,7 @@ export function Footer() {
             <ul className="mt-4 space-y-3">
               <li className="flex items-center gap-2 text-sm">
                 <Mail className="h-4 w-4 text-emerald-400" />
-                support@landseller.com
+                support@swadharmaproperties.com
               </li>
               <li className="flex items-center gap-2 text-sm">
                 <Phone className="h-4 w-4 text-emerald-400" />
@@ -89,7 +89,7 @@ export function Footer() {
 
         <div className="mt-12 border-t border-slate-800 pt-8">
           <p className="text-center text-sm text-slate-500">
-            © {new Date().getFullYear()} LandSeller. All rights reserved.
+            © {new Date().getFullYear()} Swadharma Properties. All rights reserved.
           </p>
         </div>
       </div>

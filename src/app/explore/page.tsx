@@ -1,5 +1,7 @@
 import { Suspense } from "react";
-import { Search, MapPin, Loader2, Sparkles, SlidersHorizontal, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { MapPin, Loader2, Sparkles, SlidersHorizontal, ArrowUpRight } from "lucide-react";
 import { LandFilters } from "@/components/LandFilters";
 import { LandCard } from "@/components/LandCard";
 import { getLands } from "@/actions/land";
@@ -18,8 +20,15 @@ interface ExplorePageProps {
 }
 
 export default async function ExplorePage({ searchParams }: ExplorePageProps) {
+  // Parse search params
   const params = await searchParams;
-  const lands = await getLands(params);
+  const lands = await getLands({
+    ...params,
+    minPrice: params.minPrice ? Number(params.minPrice) : undefined,
+    maxPrice: params.maxPrice ? Number(params.maxPrice) : undefined,
+    minArea: params.minArea ? Number(params.minArea) : undefined,
+    maxArea: params.maxArea ? Number(params.maxArea) : undefined,
+  });
 
   return (
     <div className="min-h-screen bg-slate-50 pt-16 pb-32">
@@ -82,8 +91,10 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
                   Try recalibrating your search parameters.
                 </p>
                 <div className="mt-12 flex justify-center gap-4">
-                   <Button variant="outline" className="rounded-2xl px-10 h-14 border-2 font-bold" onClick={() => window.location.href='/explore'}>
-                      Reset Parameters
+                   <Button asChild variant="outline" className="rounded-2xl px-10 h-14 border-2 font-bold">
+                      <Link href="/explore">
+                        Reset Parameters
+                      </Link>
                    </Button>
                 </div>
               </div>

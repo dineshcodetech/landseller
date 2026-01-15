@@ -17,7 +17,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "LandSeller - Premium Land Marketplace",
+  title: "Swadharma Properties - Premium Land Marketplace",
   description:
     "Discover and sell premium land properties. Your trusted marketplace for residential, commercial, agricultural, and industrial land.",
   keywords: [
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     "land marketplace",
   ],
   openGraph: {
-    title: "LandSeller - Premium Land Marketplace",
+    title: "Swadharma Properties - Premium Land Marketplace",
     description:
       "Discover and sell premium land properties. Your trusted marketplace for all types of land.",
     type: "website",

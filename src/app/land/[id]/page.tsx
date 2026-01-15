@@ -4,8 +4,6 @@ import Link from "next/link";
 import { 
   MapPin, 
   Ruler, 
-  Calendar, 
-  User, 
   Phone, 
   Mail,
   ArrowLeft,
@@ -35,11 +33,11 @@ export async function generateMetadata({ params }: LandPageProps) {
   const land = await getLandById(id);
 
   if (!land) {
-    return { title: "Land Not Found | LandSeller" };
+    return { title: "Land Not Found | Swadharma Properties" };
   }
 
   return {
-    title: `${land.title} | LandSeller`,
+    title: `${land.title} | Swadharma Properties`,
     description: land.description.substring(0, 160),
     openGraph: {
       title: land.title,

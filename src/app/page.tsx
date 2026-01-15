@@ -17,6 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { LandCard } from "@/components/LandCard";
 import { getFeaturedLands } from "@/actions/land";
+import { cn } from "@/lib/utils";
 
 const STATS = [
   { label: "Properties Listed", value: "2,500+", icon: Building, color: "text-blue-500", bg: "bg-blue-500/10" },

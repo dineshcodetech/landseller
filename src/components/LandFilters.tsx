@@ -2,7 +2,7 @@
 
 import { useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Search, MapPin, IndianRupee, Maximize, Filter, X, ChevronDown } from "lucide-react";
+import { Search, MapPin, IndianRupee, Maximize, Filter, X, Building } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";

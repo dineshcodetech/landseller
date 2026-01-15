@@ -23,6 +23,7 @@ export interface ActionResult {
   success: boolean;
   message: string;
   data?: unknown;
+  errors?: Record<string, string>;
 }
 
 export interface LandFilters {
@@ -53,6 +54,27 @@ function serializeLand(land: ILand) {
     createdAt: land.createdAt.toISOString(),
     updatedAt: land.updatedAt.toISOString(),
   };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function handleMongooseError(error: any): { message: string; errors?: Record<string, string> } {
+  console.error("Land action error:", error);
+
+  if (error.name === "ValidationError") {
+    const errors: Record<string, string> = {};
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Object.keys(error.errors).forEach((key) => {
+      errors[key] = error.errors[key].message;
+      // Also map nested location fields to top-level keys for the form
+      if (key.startsWith("location.")) {
+        const field = key.split(".")[1];
+        errors[field] = error.errors[key].message;
+      }
+    });
+    return { message: "Validation failed", errors };
+  }
+
+  return { message: error.message || "Something went wrong" };
 }
 
 export async function createLand(data: LandFormData): Promise<ActionResult> {
@@ -91,8 +113,8 @@ export async function createLand(data: LandFormData): Promise<ActionResult> {
       data: { id: land._id.toString() },
     };
   } catch (error) {
-    console.error("Create land error:", error);
-    return { success: false, message: "Failed to create listing" };
+    const { message, errors } = handleMongooseError(error);
+    return { success: false, message, errors };
   }
 }
 
@@ -134,7 +156,7 @@ export async function updateLand(
       };
     }
 
-    await Land.findByIdAndUpdate(landId, updateData);
+    await Land.findByIdAndUpdate(landId, updateData, { runValidators: true });
 
     revalidatePath("/dashboard");
     revalidatePath("/explore");
@@ -143,8 +165,8 @@ export async function updateLand(
 
     return { success: true, message: "Land listing updated successfully!" };
   } catch (error) {
-    console.error("Update land error:", error);
-    return { success: false, message: "Failed to update listing" };
+    const { message, errors } = handleMongooseError(error);
+    return { success: false, message, errors };
   }
 }
 

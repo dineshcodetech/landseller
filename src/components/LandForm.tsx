@@ -55,6 +55,7 @@ export function LandForm({ land, onSuccess }: LandFormProps) {
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
   const [newFeature, setNewFeature] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const [formData, setFormData] = useState<LandFormData>({
     title: land?.title || "",
@@ -89,6 +90,7 @@ export function LandForm({ land, onSuccess }: LandFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
 
     if (!formData.title || !formData.description || !formData.price || !formData.area) {
       toast({
@@ -116,6 +118,7 @@ export function LandForm({ land, onSuccess }: LandFormProps) {
           router.push("/dashboard");
         }
       } else {
+        if (result.errors) setErrors(result.errors);
         toast({
           title: "Error",
           description: result.message,
@@ -137,6 +140,7 @@ export function LandForm({ land, onSuccess }: LandFormProps) {
             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
             disabled={isPending}
           />
+          {errors["title"] && <p className="text-sm font-medium text-red-500 mt-1">{errors["title"]}</p>}
         </div>
 
         <div className="space-y-2 md:col-span-2">
@@ -149,6 +153,7 @@ export function LandForm({ land, onSuccess }: LandFormProps) {
             disabled={isPending}
             rows={4}
           />
+          {errors["description"] && <p className="text-sm font-medium text-red-500 mt-1">{errors["description"]}</p>}
         </div>
 
         <div className="space-y-2">
@@ -161,6 +166,7 @@ export function LandForm({ land, onSuccess }: LandFormProps) {
             onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
             disabled={isPending}
           />
+          {errors["price"] && <p className="text-sm font-medium text-red-500 mt-1">{errors["price"]}</p>}
         </div>
 
         <div className="space-y-2">
@@ -173,6 +179,7 @@ export function LandForm({ land, onSuccess }: LandFormProps) {
             onChange={(e) => setFormData({ ...formData, area: Number(e.target.value) })}
             disabled={isPending}
           />
+          {errors["area"] && <p className="text-sm font-medium text-red-500 mt-1">{errors["area"]}</p>}
         </div>
 
         <div className="space-y-2">
@@ -225,6 +232,7 @@ export function LandForm({ land, onSuccess }: LandFormProps) {
             onChange={(e) => setFormData({ ...formData, city: e.target.value })}
             disabled={isPending}
           />
+          {errors["city"] && <p className="text-sm font-medium text-red-500 mt-1">{errors["city"]}</p>}
         </div>
 
         <div className="space-y-2">
@@ -237,6 +245,7 @@ export function LandForm({ land, onSuccess }: LandFormProps) {
             disabled={isPending}
             maxLength={6}
           />
+          {errors["pincode"] && <p className="text-sm font-medium text-red-500 mt-1">{errors["pincode"]}</p>}
         </div>
 
         <div className="space-y-2 md:col-span-2">
@@ -248,6 +257,7 @@ export function LandForm({ land, onSuccess }: LandFormProps) {
             onChange={(e) => setFormData({ ...formData, address: e.target.value })}
             disabled={isPending}
           />
+          {errors["address"] && <p className="text-sm font-medium text-red-500 mt-1">{errors["address"]}</p>}
         </div>
 
         <div className="space-y-2 md:col-span-2">

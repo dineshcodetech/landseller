@@ -49,7 +49,7 @@ export function Navbar({ user }: NavbarProps) {
             <div className="absolute inset-0 rounded-2xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
           </div>
           <span className="text-2xl font-bold font-heading tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent group-hover:from-emerald-600 group-hover:to-teal-600 transition-all">
-            LandSeller
+            Swadharma Properties
           </span>
         </Link>
 

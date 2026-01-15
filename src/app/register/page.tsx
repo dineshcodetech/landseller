@@ -89,7 +89,7 @@ export default function RegisterPage() {
               <MapPin className="h-6 w-6 text-white" />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-              LandSeller
+              Swadharma Properties
             </span>
           </Link>
         </div>
@@ -98,7 +98,7 @@ export default function RegisterPage() {
           <CardHeader className="text-center pb-2">
             <CardTitle className="text-2xl">Create Account</CardTitle>
             <CardDescription>
-              Join LandSeller to buy or sell land properties
+              Join Swadharma Properties to buy or sell land properties
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-6">
