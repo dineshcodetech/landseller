@@ -14,15 +14,12 @@ export interface ContactFormData {
   message: string;
 }
 
-export interface ActionResult {
-  success: boolean;
-  message: string;
-}
+import { ActionResult } from "@/types/actions";
 
 function serializeContactRequest(request: IContactRequest) {
   return {
     _id: request._id.toString(),
-    land: typeof request.land === "object" ? request.land : request.land.toString(),
+    land: request.land.toString(),
     seller: request.seller.toString(),
     name: request.name,
     email: request.email,
@@ -83,13 +80,15 @@ export async function getContactRequests() {
     return requests.map((request) => ({
       ...serializeContactRequest(request as unknown as IContactRequest),
       land:
-        typeof request.land === "object"
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        typeof (request.land as any) === "object"
           ? {
               _id: request.land._id.toString(),
               title: (request.land as unknown as { title: string }).title,
               location: (request.land as unknown as { location: object }).location,
             }
-          : request.land.toString(),
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          : (request.land as any).toString(),
     }));
   } catch (error) {
     console.error("Get contact requests error:", error);

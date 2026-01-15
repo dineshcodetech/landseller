@@ -5,11 +5,7 @@ import { signIn, signOut } from "@/lib/auth";
 import connectDB from "@/lib/db";
 import User from "@/models/User";
 
-export interface ActionResult {
-  success: boolean;
-  message: string;
-  error?: string;
-}
+import { ActionResult } from "@/types/actions";
 
 export async function registerUser(formData: FormData): Promise<ActionResult> {
   try {

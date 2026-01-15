@@ -19,12 +19,7 @@ export interface LandFormData {
   images: string[];
 }
 
-export interface ActionResult {
-  success: boolean;
-  message: string;
-  data?: unknown;
-  errors?: Record<string, string>;
-}
+import { ActionResult } from "@/types/actions";
 
 export interface LandFilters {
   city?: string;

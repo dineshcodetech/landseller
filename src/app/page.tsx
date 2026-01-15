@@ -351,7 +351,7 @@ export default async function HomePage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="rounded-2xl h-16 px-12 text-lg font-black border-slate-700 text-white hover:bg-slate-800 transition-transform hover:scale-105"
+                  className="rounded-2xl h-16 px-12 text-lg font-black border-slate-700 text-black hover:bg-slate-800 transition-transform hover:scale-105"
                 >
                   Start Listing
                 </Button>
