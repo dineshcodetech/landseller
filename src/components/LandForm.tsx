@@ -295,22 +295,77 @@ export function LandForm({ land, onSuccess }: LandFormProps) {
           )}
         </div>
 
-        <div className="space-y-2 md:col-span-2">
-          <Label htmlFor="images">Image URLs (comma separated)</Label>
-          <Input
-            id="images"
-            placeholder="https://example.com/image1.jpg, https://example.com/image2.jpg"
-            value={formData.images.join(", ")}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                images: e.target.value.split(",").map((s) => s.trim()).filter(Boolean),
-              })
-            }
-            disabled={isPending}
-          />
+        <div className="space-y-4 md:col-span-2">
+          <Label>Property Images</Label>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+            {formData.images.map((image, index) => (
+              <div key={index} className="relative aspect-[4/3] group">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={image}
+                  alt={`Preview ${index + 1}`}
+                  className="w-full h-full object-cover rounded-lg border border-slate-200"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    const newImages = [...formData.images];
+                    newImages.splice(index, 1);
+                    setFormData({ ...formData, images: newImages });
+                  }}
+                  className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+            ))}
+            <label className="flex flex-col items-center justify-center aspect-[4/3] border-2 border-dashed border-slate-300 rounded-lg cursor-pointer hover:border-emerald-500 hover:bg-emerald-50 transition-colors">
+              <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                <Plus className="h-8 w-8 text-slate-400 mb-2" />
+                <p className="text-sm text-slate-500 font-medium">Add Images</p>
+              </div>
+              <input
+                type="file"
+                className="hidden"
+                multiple
+                accept="image/*"
+                onChange={async (e) => {
+                  const files = Array.from(e.target.files || []);
+                  if (files.length === 0) return;
+
+                  const newImages: string[] = [];
+                  for (const file of files) {
+                    if (file.size > 1024 * 1024 * 4) { // 4MB limit
+                        toast({
+                          title: "File too large",
+                          description: `${file.name} is larger than 4MB`,
+                          variant: "destructive",
+                        });
+                        continue;
+                    }
+                    
+                    const reader = new FileReader();
+                    newImages.push(
+                      await new Promise((resolve) => {
+                        reader.onload = (e) => resolve(e.target?.result as string);
+                        reader.readAsDataURL(file);
+                      })
+                    );
+                  }
+                  
+                  setFormData(prev => ({
+                    ...prev,
+                    images: [...prev.images, ...newImages]
+                  }));
+                  
+                  // Reset input
+                  e.target.value = "";
+                }}
+              />
+            </label>
+          </div>
           <p className="text-xs text-slate-500">
-            Add image URLs separated by commas. Leave empty for default images.
+            Upload up to 4MB per image. First image will be the cover.
           </p>
         </div>
       </div>

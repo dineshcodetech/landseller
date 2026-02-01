@@ -58,7 +58,7 @@ export async function loginUser(formData: FormData): Promise<ActionResult> {
     }
 
     await signIn("credentials", {
-      email,
+      email: email.toLowerCase(),
       password,
       redirect: false,
     });

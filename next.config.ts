@@ -33,11 +33,17 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "*.ftcdn.net",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
   experimental: {
     serverActions: {
-      bodySizeLimit: "2mb",
+      bodySizeLimit: "5mb",
     },
   },
 };
